@@ -3,7 +3,8 @@
  */
 
 import {NativeModules, NativeAppEventEmitter} from 'react-native';
-import promisify from 'es6-promisify';
+//import promisify from 'es6-promisify';
+import Promise from 'bluebird'
 
 const {WeiboAPI} = NativeModules;
 
@@ -27,7 +28,7 @@ function wrapApi(nativeFunc) {
     if (!nativeFunc) {
         return undefined;
     }
-    const promisified = promisify(nativeFunc, translateError);
+    const promisified = Promise.promisify(nativeFunc, translateError);
     return (...args) => {
         return promisified(...args);
     };
